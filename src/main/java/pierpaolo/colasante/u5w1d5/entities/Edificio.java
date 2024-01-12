@@ -16,7 +16,6 @@ public class Edificio {
     private String nome;
     private String indirizzo;
     private String città;
-
     @OneToMany(mappedBy = "edificio", cascade = CascadeType.ALL)
     private List<Postazione> postazioni;
 

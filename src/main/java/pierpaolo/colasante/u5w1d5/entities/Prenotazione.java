@@ -27,7 +27,6 @@ public class Prenotazione {
         this.data = data;
         this.postazione = postazione;
         this.utente = utente;
-        System.out.println("Prenotazione in data: " + data.toString() + " avvenuta con successo");
     }
 
     @Override

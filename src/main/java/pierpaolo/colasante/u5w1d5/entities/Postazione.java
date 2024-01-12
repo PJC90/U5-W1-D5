@@ -25,12 +25,20 @@ public class Postazione {
     @OneToMany(mappedBy = "postazione", cascade = CascadeType.ALL)
     private List<Prenotazione> prenotazioni;
 
-    public Postazione(String descrizione, TipoPostazione tipo, int numMaxOccupanti) {
+    public Postazione(String descrizione, Edificio edificio) {
         Random rm = new Random();
         this.descrizione = descrizione;
-        this.tipo = tipo;
-        this.numMaxOccupanti = numMaxOccupanti;
         this.codice = rm.nextInt(10000000);
+        this.edificio = edificio;
+
+        TipoPostazione[] tipiPostaz = TipoPostazione.values();
+        this.tipo = tipiPostaz[rm.nextInt(tipiPostaz.length)];
+
+        switch (this.tipo) {
+            case PRIVATO -> this.numMaxOccupanti = 2;
+            case OPEN_SPACE -> this.numMaxOccupanti = 10;
+            case SALA_RIUNIONI -> this.numMaxOccupanti = 25;
+        }
     }
 
     @Override
