@@ -10,7 +10,14 @@ public class PrenotazioneService {
     private PrenotazioneDAO prenotazioneDAO;
 
     public void savePrenotazione(Prenotazione prenotazione){
-        prenotazioneDAO.save(prenotazione);
-        System.out.println("Prenotazione in data: "+ prenotazione.getData() +" effettuata con successo!!!");
+
+        boolean controlloPrenotaz = prenotazioneDAO.existsByDataAndUtenteAndPostazione(prenotazione.getData(), prenotazione.getUtente(), prenotazione.getPostazione());
+
+        if(controlloPrenotaz){
+            System.err.println("Peccato " + prenotazione.getUtente().getNomeCognome() + " hai già una prenotazione in questa data e in questa postazione!");
+        } else{
+            prenotazioneDAO.save(prenotazione);
+            System.out.println("Prenotazione in data: "+ prenotazione.getData() +" effettuata con successo!!!");
+        }
     }
 }

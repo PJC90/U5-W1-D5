@@ -55,11 +55,20 @@ public class SaveRunner implements CommandLineRunner {
 //            SALVA POSTAZIONI
             Postazione postazioneCreata = new Postazione(randomPostazione,edificioCreato);
             postazioneService.savepostazione(postazioneCreata);
+
 //            SALVA PRENOTAZIONI
             Prenotazione prenotazioneCreata = new Prenotazione(LocalDate.now().plusDays(numCasuale), postazioneCreata, utenteCreato);
             prenotazioneService.savePrenotazione(prenotazioneCreata);
 
+//            SALVA PRENOTAZIONI dello stesso UTENTE nello stesso giorno (darà errore)
+//              per ora non ho ancora dei metodo findById quindi faccio questo controllo duplicando prenotazioneCreata
 
+            Prenotazione prenotazioneCreata2 = new Prenotazione(LocalDate.now().plusDays(numCasuale), postazioneCreata, utenteCreato);
+            prenotazioneService.savePrenotazione(prenotazioneCreata2);
+
+//            SALVA PRENOTAZIONE dello stesso UTENTE MA CON DATA DIVERSA
+            Prenotazione prenotazioneCreata3 = new Prenotazione(LocalDate.now().plusDays(18), postazioneCreata, utenteCreato);
+            prenotazioneService.savePrenotazione(prenotazioneCreata3);
 
         } catch (Exception ex) {
             System.err.println(ex.getMessage());
